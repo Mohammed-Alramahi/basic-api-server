@@ -12,35 +12,35 @@ describe("Server Test Group", () => {
   });
 
   it("Handles bad method", async () => {
-    const response = await request.post("/person?name=yazan");
+    const response = await request.post("/person?name=Alaa");
     expect(response.status).toEqual(404);
   });
 
   it("Handles post method", async () => {
-    const sentObj = {
-      name: "yazan",
-      description: "100",
+    const dataObject = {
+      name: "Alaa",
+      description: "any",
     };
-    const response = await request.post("/api/v1/clothes").send(sentObj);
+    const response = await request.post("/api/v1/clothes").send(dataObject);
     id = response.body.id;
     expect(response.status).toEqual(200);
-    expect(response.body.data.name).toBe(sentObj.name);
-    expect(response.body.data.description).toBe(sentObj.description);
+    expect(response.body.data.name).toBe(dataObject.name);
+    expect(response.body.data.description).toBe(dataObject.description);
   });
 
   it("Handles reading a list of records", async () => {
-    const sentObj = {
-      name: "yazan",
-      description: "100",
+    const dataObject = {
+      name: "Alaa",
+      description: "funny guy",
     };
 
-    const sentObj2 = {
-      name: "moe",
-      description: "100",
+    const dataObject2 = {
+      name: "khalid",
+      description: "funny guy",
     };
 
-    await request.post("/api/v1/clothes").send(sentObj);
-    await request.post("/api/v1/clothes").send(sentObj2);
+    await request.post("/api/v1/clothes").send(dataObject);
+    await request.post("/api/v1/clothes").send(dataObject2);
 
     const response = await request.get("/api/v1/clothes");
     expect(response.status).toEqual(200);
@@ -50,13 +50,13 @@ describe("Server Test Group", () => {
   it("Handles reading a record", async () => {
     const response = await request.get("/api/v1/clothes/" + id);
     expect(response.status).toEqual(200);
-    expect(response.body.data.name).toBe("yazan");
+    expect(response.body.data.name).toBe("Alaa");
   });
 
   it("Handles updating a record", async () => {
     const newObj = {
       name: "potato",
-      description: "5",
+      description: "any",
     };
 
     const response = await request.put("/api/v1/clothes/" + id).send(newObj);
